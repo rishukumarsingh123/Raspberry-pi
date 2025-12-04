@@ -1,0 +1,21 @@
+# for PWM only 4 pin available in raspberry pi i.e 12,13,18,19.we can change maximum 100hz.
+import RPi.GPIO as GPIO
+from time import sleep
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)   
+
+red = int(18)
+GPIO.setup(red, GPIO.OUT)
+
+p=GPIO.PWM(red,100)
+p.start(0)
+
+for i in range(100):
+	p.ChangeDutyCycle(i)
+	print(i)
+	sleep(0.1)
+	
+for i in range(100,0,-1):
+	p.ChangeDutyCycle(i)
+	print(i)
+	sleep(0.1)
