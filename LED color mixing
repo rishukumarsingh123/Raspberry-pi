@@ -1,0 +1,52 @@
+# 12,13,18 GPIO Pins
+# MAGENTA (RED 100, BLUE 100)
+# CYAN    (GREEN 100, BLUE 100)
+# YELLOW  (RED 100, GREEN 100)
+
+import RPi.GPIO as GPIO
+from time import sleep
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+
+red = 12
+green = 13
+blue = 18
+
+GPIO.setup(red, GPIO.OUT)
+GPIO.setup(green, GPIO.OUT)
+GPIO.setup(blue, GPIO.OUT)
+
+P = GPIO.PWM(red, 100)    # Red channel
+Q = GPIO.PWM(green, 100)  # Green channel
+R = GPIO.PWM(blue, 100)   # Blue channel
+
+P.start(0)
+Q.start(0)
+R.start(0)
+
+# ----------- YELLOW (Red + Green) -----------
+P.ChangeDutyCycle(100)
+Q.ChangeDutyCycle(100)
+sleep(2)
+P.ChangeDutyCycle(0)
+Q.ChangeDutyCycle(0)
+sleep(1)
+
+# ----------- MAGENTA (Red + Blue) -----------
+P.ChangeDutyCycle(100)
+R.ChangeDutyCycle(100)
+sleep(2)
+P.ChangeDutyCycle(0)
+R.ChangeDutyCycle(0)
+sleep(1)
+
+# ----------- CYAN (Green + Blue) -----------
+R.ChangeDutyCycle(100)
+Q.ChangeDutyCycle(100)
+sleep(2)
+R.ChangeDutyCycle(0)
+Q.ChangeDutyCycle(0)
+sleep(1)
+
+GPIO.cleanup()
