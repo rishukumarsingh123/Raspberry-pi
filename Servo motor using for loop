@@ -1,0 +1,30 @@
+#50 Hz, 2.5 msec, to 12.5 msec
+import RPi.GPIO as GPIO
+from time import sleep
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+
+servopin = 12
+
+GPIO.setup(servopin, GPIO.OUT)
+servo=GPIO.PWM(servopin,50)
+servo.start(2.5)
+
+delay=float(input('enter delay in seconds '))
+cycle=int(input('enter no. of cycle '))
+
+for j in range(cycle):
+	
+    for i in range(2,13):
+        servo.ChangeDutyCycle(i+0.5)
+        print(i+0.5)
+        sleep(delay) 
+    
+    for i in range(12,1,-1):
+        servo.ChangeDutyCycle(i+0.5)
+        print(i+0.5)
+        sleep(delay) 
+
+print('all the cycles are over')
+GPIO.cleanup()
