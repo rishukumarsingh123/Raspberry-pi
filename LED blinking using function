@@ -1,0 +1,46 @@
+import RPi.GPIO as GPIO
+from time import sleep
+
+GPIO.setwarnings(False)
+
+GPIO.setmode(GPIO.BCM)   
+
+red = int(21)
+green=int(20)
+blue=int(16)
+
+GPIO.setup(red, GPIO.OUT)
+GPIO.setup(green, GPIO.OUT)
+GPIO.setup(blue, GPIO.OUT)
+
+cycle=int(input('enter number of cycle '))
+delay=float(input('enter delay '))
+
+def redlight():
+    GPIO.output(red, True)
+    sleep(delay)
+    GPIO.output(red, False)
+    sleep(delay)
+    print('Red cycle')
+    
+def greenlight():
+    GPIO.output(green, True)
+    sleep(delay)
+    GPIO.output(green, False)
+    sleep(delay)
+    print('Green cycle')	
+	    
+def bluelight():
+    GPIO.output(blue, True)
+    sleep(delay)
+    GPIO.output(blue, False)
+    sleep(delay)
+    print('Blue cycle')
+    
+for i in range(cycle):
+	redlight()
+	greenlight()
+	bluelight()     
+ 
+print('program ended')    
+
