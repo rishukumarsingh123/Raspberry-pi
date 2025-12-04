@@ -1,0 +1,43 @@
+#50 Hz, 2.5 msec, to 12.5 msec
+import RPi.GPIO as GPIO
+from time import sleep
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+
+servopin = 12
+
+GPIO.setup(servopin, GPIO.OUT)
+servo=GPIO.PWM(servopin,50)
+servo.start(2.5)
+
+servo.ChangeDutyCycle(2.5)# 0 degree 
+print('0')
+sleep(1)
+servo.ChangeDutyCycle(5)# 45 degree 
+print('45')
+sleep(1)
+servo.ChangeDutyCycle(7.5)# 90 degree (home position) 
+print('90')
+sleep(1)
+servo.ChangeDutyCycle(10)# 135 degree 
+print('135')
+sleep(1)
+servo.ChangeDutyCycle(12.5)# 180 degree 
+print('180')
+sleep(1)
+
+
+servo.ChangeDutyCycle(10)# 135 degree 
+print('135')
+sleep(1)
+servo.ChangeDutyCycle(7.5)# 90 degree (home position) 
+print('90')
+sleep(1)
+servo.ChangeDutyCycle(5)# 45 degree 
+print('45')
+sleep(1)
+servo.ChangeDutyCycle(2.5)# 0 degree 
+print('0')
+sleep(1)
+GPIO.cleanup()
