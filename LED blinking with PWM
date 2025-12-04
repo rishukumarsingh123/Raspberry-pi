@@ -1,10 +1,10 @@
-# for PWM only 4 pin available in raspberry pi i.e 12,13,18,19.we can change maximum 100hz.
+# for PWM only 4 GPIO pin available in raspberry pi i.e 12,13,18,19.we can change maximum 100hz.
 import RPi.GPIO as GPIO
 from time import sleep
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)   
 
-red = int(18)
+red = int(12)
 GPIO.setup(red, GPIO.OUT)
 
 p=GPIO.PWM(red,100)
