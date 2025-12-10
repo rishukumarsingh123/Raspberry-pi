@@ -1,0 +1,55 @@
+#define m1 4
+#define en 6
+
+const int trigPin = 9;
+const int echoPin = 10;
+
+long duration;
+int distance;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(13, OUTPUT);
+
+  pinMode(m1, OUTPUT);
+  pinMode(en, OUTPUT);
+
+  digitalWrite(m1, LOW);
+  analogWrite(en, 0);
+}
+
+void loop() {
+
+  // ultrasonic pulse
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH, 20000); // timeout for stability
+  distance = duration * 0.034 / 2;
+
+  // If valid distance within 10 cm
+  if (distance > 0 && distance <= 10) {
+
+    digitalWrite(13, HIGH);
+    // turn motor ON
+    digitalWrite(m1, HIGH);
+    analogWrite(en, 255);
+
+    delay(50); // <<— stability boost (increase if needed)
+
+  } else {
+    digitalWrite(13, LOW);
+
+    // turn motor OFF immediately
+    digitalWrite(m1, LOW);
+    analogWrite(en, 0);
+  }
+
+  delay(30); // small refresh delay
+}
+
